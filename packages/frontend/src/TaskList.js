@@ -27,6 +27,13 @@ function TaskList({ onEdit }) {
     });
   };
 
+  // Priority color coding: P1 red, P2 orange, P3 gray
+  const PRIORITY_COLORS = {
+    P1: '#d32f2f',
+    P2: '#ff9800',
+    P3: '#9e9e9e'
+  };
+
   const fetchTasks = async () => {
     try {
       setLoading(true);
@@ -217,6 +224,20 @@ function TaskList({ onEdit }) {
                     '& .MuiChip-icon': {
                       color: 'white'
                     }
+                  }}
+                />
+              )}
+              {task.priority && (
+                <Chip
+                  label={task.priority}
+                  size="small"
+                  data-testid="priority-badge"
+                  sx={{
+                    height: 20,
+                    fontSize: '0.7rem',
+                    fontWeight: 700,
+                    background: PRIORITY_COLORS[task.priority] || PRIORITY_COLORS.P3,
+                    color: 'white'
                   }}
                 />
               )}

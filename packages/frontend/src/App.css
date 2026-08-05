@@ -92,3 +92,13 @@ li:last-child {
   color: #d32f2f;
   font-weight: bold;
 }
+
+.priority-option {
+  color: #7A7A7A;
+  border-color: #7A7A7A;
+}
+
+.priority-option.selected {
+  color: #07F2E6;
+  border-color: #07F2E6;
+}

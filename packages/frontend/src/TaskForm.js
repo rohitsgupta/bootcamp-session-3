@@ -1,7 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import { TextField, Button, Paper, Typography, Box, MenuItem } from '@mui/material';
+import { TextField, Button, Paper, Typography, Box } from '@mui/material';
 import AddIcon from '@mui/icons-material/Add';
 import SaveIcon from '@mui/icons-material/Save';
+import './App.css';
+
+const PRIORITY_OPTIONS = ['P1', 'P2', 'P3'];
 
 function TaskForm({ onSave, initialTask }) {
   const [title, setTitle] = useState(initialTask?.title || '');
@@ -147,32 +150,36 @@ function TaskForm({ onSave, initialTask }) {
             }
           }}
         />
-        <TextField
-          id="task-priority"
-          label="Priority"
-          select
-          value={priority}
-          onChange={e => setPriority(e.target.value)}
-          variant="outlined"
-          fullWidth
-          size="small"
-          inputProps={{ 'data-testid': 'priority-input' }}
-          sx={{
-            '& .MuiOutlinedInput-root': {
-              borderRadius: 2,
-              '&:hover fieldset': {
-                borderColor: '#1976d2',
-              },
-              '&.Mui-focused fieldset': {
-                borderColor: '#1976d2',
-              }
-            }
-          }}
-        >
-          <MenuItem value="P1">P1 - High</MenuItem>
-          <MenuItem value="P2">P2 - Medium</MenuItem>
-          <MenuItem value="P3">P3 - Low</MenuItem>
-        </TextField>
+        <Box data-testid="priority-input">
+          <Typography variant="caption" sx={{ color: '#616161', fontWeight: 600 }}>
+            Priority
+          </Typography>
+          <Box display="flex" gap={1} mt={0.5}>
+            {PRIORITY_OPTIONS.map(option => (
+              <Button
+                key={option}
+                type="button"
+                variant="outlined"
+                size="small"
+                onClick={() => setPriority(option)}
+                data-testid={`priority-option-${option}`}
+                className={`priority-option${priority === option ? ' selected' : ''}`}
+                sx={{
+                  borderRadius: 4,
+                  textTransform: 'none',
+                  fontWeight: 600,
+                  borderColor: 'inherit',
+                  color: 'inherit',
+                  '&:hover': {
+                    borderColor: 'inherit'
+                  }
+                }}
+              >
+                {option}
+              </Button>
+            ))}
+          </Box>
+        </Box>
         {error && <Typography color="error" sx={{ fontWeight: 500, fontSize: '0.875rem' }}>{error}</Typography>}
         <Box display="flex" gap={2}>
           <Button 
